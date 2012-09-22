@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project name="json" default="dist" basedir=".">
+
+  <!-- system-specific properties -->
+  <property file="${user.home}/.ant.user.properties"/>
+
+  <!-- properties for this build -->
+  <property name="prjname" value="${ant.project.name}"/>
+  <property name="main" value="src/main"/>
+  <property name="src" value="${main}/java"/>
+  <property name="build" value="${user.builddir}/${prjname}"/>
+  <property name="dist" value="${user.distdir}/${prjname}"/>
+  <property name="jar" value="${dist}/${prjname}.jar"/>
+
+  <!-- actions -->
+  <target name="clean">
+    <delete dir="${build}" quiet="yes"/>
+    <delete dir="${dist}" quiet="yes"/>
+  </target>
+
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="${build}"/>
+    <mkdir dir="${dist}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${src}" destdir="${build}" debug="yes" target="1.6">
+    </javac>
+  </target>
+
+  <target name="dist" depends="clean,compile">
+    <tstamp><format property="build.time" pattern="EEE, d MMM yyyy HH:mm:ss z"/></tstamp>
+    <jar jarfile="${jar}" basedir="${build}">
+      <manifest>
+        <attribute name="Built-By" value="${user.name}"/>
+        <attribute name="Build-Date" value="${build.time}"/>
+      </manifest>
+    </jar>
+  </target>
+
+
+</project>
