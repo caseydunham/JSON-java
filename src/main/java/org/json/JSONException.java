@@ -6,7 +6,9 @@ package org.json;
  * @version 2010-12-24
  */
 public class JSONException extends Exception {
+
     private static final long serialVersionUID = 0;
+
     private Throwable cause;
 
     /**
@@ -23,6 +25,6 @@ public class JSONException extends Exception {
     }
 
     public Throwable getCause() {
-        return this.cause;
+        return cause;
     }
 }
